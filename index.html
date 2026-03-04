@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>津川さん送別会 告知ページ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c0392b; /* Flame Red */
+            --accent-color: #f39c12; /* Golden Orange */
+            --bg-color: #000000; /* Deep Black */
+            --text-color: #ffffff;
+            --border-color: #555;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #1a1a1a;
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+        }
+
+        /* A4 Size Layout */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 0; /* Remove padding to allow hero image to bleed */
+            margin: 10mm auto;
+            background: #111;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--accent-color);
+        }
+
+        @media print {
+            body { background: none; }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        }
+
+        .hero {
+            position: relative;
+            height: 400px;
+            background-image: url('hot_man_tsugawa.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            border-bottom: 8px solid var(--accent-color);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-catchphrase {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 4rem;
+            color: var(--accent-color);
+            letter-spacing: 0.2em;
+            margin-bottom: 5px;
+            font-weight: 900;
+            text-transform: uppercase;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.8; text-shadow: 0 0 10px #f39c12; }
+            50% { opacity: 1; text-shadow: 0 0 30px #e67e22, 0 0 50px #c0392b; }
+            100% { opacity: 0.8; text-shadow: 0 0 10px #f39c12; }
+        }
+
+        .sub-catchphrase {
+            font-size: 1.8rem;
+            color: #fff;
+            background: var(--primary-color);
+            padding: 5px 20px;
+            display: inline-block;
+            transform: skew(-10deg);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            font-weight: bold;
+            width: 100%;
+            margin: 0 auto;
+            white-space: nowrap;
+        }
+
+        .hero p span {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 30px 20px 20px;
+            color: var(--accent-color);
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .content-wrap {
+            padding: 0 30px 30px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .section::before {
+            content: 'HOT';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            border-left: 10px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 15px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .member-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .member-item {
+            background: #333;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            border: 1px solid #555;
+        }
+
+        .member-item.host {
+            background: #444;
+            border-color: #888;
+        }
+
+        .member-item.guest {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 0 15px rgba(230, 126, 34, 0.5);
+            border: none;
+        }
+
+        .member-item.more {
+            background: none;
+            border: 1px dashed #777;
+            font-style: italic;
+            color: #999;
+        }
+
+        .notice-box {
+            background-color: rgba(192, 57, 43, 0.1);
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            font-size: 1rem;
+            border-radius: 0;
+            margin-top: 30px;
+        }
+
+        .notice-box strong {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 900;
+            padding-bottom: 40px;
+        }
+
+        .burning-text {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="hero">
+        <div class="hero-content">
+            <div class="main-catchphrase">炎の漢</div>
+            <div class="sub-catchphrase">津川、新橋に散る。</div>
+            <p>
+                <span>泣くのは、この熱い中華を食べてからだ。</span>
+                <span>伝説の男を、最高に熱い酒で送り出せ。</span>
+            </p>
+        </div>
+    </div>
+
+    <h1>津川さん 送別会 - THE BURNING SOUL -</h1>
+
+    <div class="content-wrap">
+        <div class="section">
+            <h2>■ 死闘の刻（日時・会場）</h2>
+            <div class="info-grid">
+                <div class="info-label">開戦時刻</div>
+                <div class="info-value">2026年3月18日(水) 19:00 〜 21:00</div>
+                
+                <div class="info-label">決戦の地</div>
+                <div class="info-value">
+                    <strong style="font-size: 1.4rem; color: var(--accent-color);">中華居酒屋 超兄貴</strong><br>
+                    東京都港区新橋4-10-2 相鉄フレッサイン新橋烏森口 2F A<br>
+                    <span style="font-size: 1rem; color: #aaa;">（新橋の闇に光る、中華の聖域 / 完全個室・喫煙可）</span>
+                </div>
+                
+                <div class="info-label">軍報</div>
+                <div class="info-value">03-6824-6661</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>■ 祝杯の儀（会費・プラン）</h2>
+            <div class="info-grid">
+                <div class="info-label">参加費</div>
+                <div class="info-value" style="font-size: 1.8rem; color: var(--accent-color); font-weight: 900; text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);">
+                    ￥5,500（魂の税込価格）
+                </div>
+                
+                <div class="info-label">御献立</div>
+                <div class="info-value">
+                    【超兄貴No.1】特別満腹コース全11品<br>
+                    <span class="burning-text">生ビールを含む、2時間の無限飲酒（L.O. 90分）</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>■ 集いし猛者たち（参加予定）</h2>
+            <ul class="member-list">
+                <li class="member-item guest">主賓：津川さん</li>
+                <li class="member-item host">幹事：若杉</li>
+                <li class="member-item">磯部さん</li>
+                <li class="member-item">かなこさん</li>
+                <li class="member-item">曽和さん</li>
+                <li class="member-item">笹野さん</li>
+                <li class="member-item">藤野さん</li>
+                <li class="member-item">五十嵐さん</li>
+                <li class="member-item">吉田(亮)さん</li>
+                <li class="member-item">遠藤</li>
+                <li class="member-item">若島さん</li>
+                <li class="member-item">眞鍋(Sバンタム級)</li>
+                <li class="member-item more">...and more (熱き志、続々集結中)</li>
+            </ul>
+        </div>
+
+        <div class="notice-box">
+            <p><strong>【鉄の掟】</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px; color: #eee;">
+                <li><strong>遅刻厳禁:</strong> 19:00に咆哮と共に開始。戦士に延長はない、遅れるな。</li>
+                <li><strong>背信行為（キャンセル）:</strong> 当日の脱落はコース代50％の制裁。変更は前夜23時までに申告せよ。</li>
+            </ul>
+        </div>
+
+        <footer>
+            魂の参戦、待っているぞ。
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>
