@@ -277,6 +277,138 @@
             background: rgba(192, 57, 43, 0.05);
         }
 
+        /* Page 3 Styles - Corkboard */
+        .corkboard {
+            background-image: url('corkboard_texture.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 297mm;
+            padding: 40px;
+            position: relative;
+        }
+
+        .corkboard::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.1); /* Very light overlay */
+            pointer-events: none;
+        }
+
+        .memory-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 3.5rem; /* 大幅にサイズアップ */
+            color: #fff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            display: inline-block;
+            width: 100%;
+            padding: 15px 0;
+            position: relative;
+            z-index: 10;
+            background: rgba(192, 57, 43, 0.9); /* 炎の赤背景で強調 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: skew(-5deg) rotate(-1deg); /* 漢らしい躍動感 */
+            text-shadow: 3px 3px 0px #000; /* クッキリとした影 */
+            border: 4px solid #fff;
+        }
+
+        .photo-gallery {
+            position: relative;
+            height: 700px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            position: absolute;
+            width: 280px;
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 3px 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #ddd;
+        }
+
+        /* 1枚目 */
+        .photo-item:nth-child(1) {
+            top: 20px;
+            left: 30px;
+            transform: rotate(-3deg);
+            z-index: 5;
+        }
+
+        /* 2枚目 */
+        .photo-item:nth-child(2) {
+            top: 60px;
+            right: 40px;
+            transform: rotate(5deg);
+            z-index: 3;
+        }
+
+        /* 3枚目 */
+        .photo-item:nth-child(3) {
+            top: 320px;
+            left: 50px;
+            transform: rotate(2deg);
+            z-index: 4;
+        }
+
+        /* 4枚目 */
+        .photo-item:nth-child(4) {
+            bottom: 40px;
+            right: 60px;
+            transform: rotate(-4deg);
+            z-index: 6;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            filter: sepia(0.2) contrast(1.1);
+        }
+
+        .photo-item .caption {
+            font-family: 'Shippori Mincho', serif;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            line-height: 1.2;
+        }
+
+        /* Pushpin Effect */
+        .pushpin {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #c62828; /* Red pushpin */
+            border-radius: 50%;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+
+        .pushpin::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            top: 3px;
+            left: 4px;
+        }
+
+        .photo-item:nth-child(even) .pushpin {
+            background-color: #1565c0; /* Blue pushpin */
+        }
+
     </style>
 </head>
 <body>
@@ -404,6 +536,41 @@
 
     <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
         &copy; 2026 THE BURNING SOUL PRODUCTION
+    </div>
+</div>
+
+<!-- Page 3 -->
+<div class="page corkboard">
+    <div class="memory-title">猛者たちのメモリー</div>
+    
+    <div class="photo-gallery">
+        <div class="photo-item">
+            <div class="pushpin"></div>
+            <img src="memory_1.png" alt="漢の絆">
+            <p class="caption">第一章：咆哮、そして乾杯</p>
+        </div>
+
+        <div class="photo-item">
+            <div class="pushpin"></div>
+            <img src="memory_2.png" alt="新橋の誓い">
+            <p class="caption">第二章：夕陽に誓う、明日の勝利</p>
+        </div>
+
+        <div class="photo-item">
+            <div class="pushpin"></div>
+            <img src="memory_3.png" alt="魂の握手">
+            <p class="caption">終章：熱き握手、新たなる旅立ち</p>
+        </div>
+
+        <div class="photo-item">
+            <div class="pushpin"></div>
+            <img src="memory_astronaut.png" alt="宇宙への旅立ち">
+            <p class="caption">特別章：未知なる銀河へ、敬礼</p>
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
+        MEMORIES FORGED IN FIRE
     </div>
 </div>
 
