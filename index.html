@@ -32,23 +32,24 @@
         .page {
             width: 210mm;
             min-height: 297mm;
-            padding: 0; /* Remove padding to allow hero image to bleed */
+            padding: 0;
             margin: 10mm auto;
             background: #111;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             position: relative;
             overflow: hidden;
             border: 5px solid var(--accent-color);
+            page-break-after: always;
         }
 
         @media print {
-            body { background: none; }
+            body { background: none; margin: 0; }
             .page {
                 margin: 0;
                 box-shadow: none;
-                width: 100%;
-                height: 100%;
-                border: none;
+                width: 210mm;
+                height: 297mm;
+                border: 5px solid var(--accent-color) !important;
             }
         }
 
@@ -243,10 +244,44 @@
             font-weight: bold;
         }
 
+        /* Page 2 Styles */
+        .lyrics-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 3rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            letter-spacing: 0.3em;
+            text-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+        }
+
+        .lyrics-content {
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #eee;
+            padding: 0 50px;
+        }
+
+        .lyrics-section {
+            margin-bottom: 30px;
+        }
+
+        .lyrics-chorus {
+            color: var(--accent-color);
+            font-weight: bold;
+            border-top: 1px solid #444;
+            border-bottom: 1px solid #444;
+            padding: 15px 0;
+            background: rgba(192, 57, 43, 0.05);
+        }
+
     </style>
 </head>
 <body>
 
+<!-- Page 1 -->
 <div class="page">
     <div class="hero">
         <div class="hero-content">
@@ -306,11 +341,12 @@
                 <li class="member-item">曽和さん</li>
                 <li class="member-item">笹野さん</li>
                 <li class="member-item">藤野さん</li>
-                <li class="member-item">五十嵐さん</li>
                 <li class="member-item">吉田(亮)さん</li>
                 <li class="member-item">遠藤</li>
                 <li class="member-item">若島さん</li>
                 <li class="member-item">眞鍋(Sバンタム級)</li>
+                <li class="member-item">棚橋</li>
+                <li class="member-item">佐野さん</li>
                 <li class="member-item more">...and more (熱き志、続々集結中)</li>
             </ul>
         </div>
@@ -326,6 +362,48 @@
         <footer>
             魂の参戦、待っているぞ。
         </footer>
+    </div>
+</div>
+
+<!-- Page 2 -->
+<div class="page">
+    <div class="lyrics-title">漢の挽歌</div>
+    
+    <div class="lyrics-content">
+        <div class="lyrics-section">
+            新橋の夜　煙に巻かれて<br>
+            背負った看板　下ろす時<br>
+            戦友（とも）と交わした　熱き盃<br>
+            胸の奥底　火が灯る
+        </div>
+
+        <div class="lyrics-section lyrics-chorus">
+            ああ　漢の挽歌　炎の道<br>
+            さらば漢たちよ　伝説の男<br>
+            涙はいらぬ　中華の熱気<br>
+            明日へ羽ばたく　鳳凰の如く
+        </div>
+
+        <div class="lyrics-section">
+            「超兄貴」に響く　笑いと怒号<br>
+            過ぎ去りし日々　宝物<br>
+            別れは常に　新しい門出<br>
+            新橋の星　永遠に照らせ
+        </div>
+
+        <div class="lyrics-section">
+            食らえ満腹　飲み干せ戦士<br>
+            この一瞬（とき）を　刻み込め
+        </div>
+
+        <div class="lyrics-section" style="font-size: 1.6rem; font-weight: bold; color: var(--accent-color);">
+            漢たちよ　永遠なれ<br>
+            漢の魂　ここにあり
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
+        &copy; 2026 THE BURNING SOUL PRODUCTION
     </div>
 </div>
 
