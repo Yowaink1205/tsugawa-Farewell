@@ -682,10 +682,10 @@
         /* Don! Effect Animation */
         .don-effect {
             position: absolute;
-            width: 130px;
+            width: 140px; /* さらにインパクトを強くしたぜ */
             pointer-events: none;
             z-index: 20;
-            /* mix-blend-modeは削除して、純粋な透過PNGとして扱うぜ */
+            mix-blend-mode: screen; /* 黒背景を透過させて背景と一体化させるぜ */
             animation: don-pop 0.3s ease-out forwards;
         }
 
@@ -930,7 +930,7 @@
             </div>
 
             <!-- Game UI -->
-            <div style="background: rgba(255,255,255,0.05); border: 2px solid #444; padding: 20px; border-radius: 15px; position: relative;">
+            <div style="background: #000000; border: 4px solid var(--primary-color); padding: 20px; border-radius: 15px; position: relative;">
                 <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
                     <div>
                         <p style="font-size: 0.8rem; color: #888;">TIME</p>
@@ -943,7 +943,7 @@
                 </div>
 
                 <!-- Main Button -->
-                <button id="burn-btn" style="width: 180px; height: 180px; border-radius: 50%; border: 8px solid #c0392b; background: radial-gradient(#e67e22, #c0392b); color: white; font-size: 1.8rem; font-weight: 900; cursor: pointer; box-shadow: 0 0 20px rgba(192, 57, 43, 0.6); transition: transform 0.05s; outline: none; user-select: none;">
+                <button id="burn-btn" style="width: 180px; height: 180px; border-radius: 50%; border: 8px solid #c0392b; background: #000000; color: white; font-size: 1.8rem; font-weight: 900; cursor: pointer; box-shadow: 0 0 25px rgba(192, 57, 43, 0.8); transition: transform 0.05s; outline: none; user-select: none; position: relative; z-index: 5;">
                     BURN!!
                 </button>
 
@@ -1266,19 +1266,35 @@
 
     function showDonEffect() {
         const effect = document.createElement('img');
-        effect.src = 'don_effect_v3.png';
+        effect.src = 'don_effect_black.png';
         effect.className = 'don-effect';
         
         // 親要素（relative）内でのボタンの中心位置を計算
         const centerX = burnBtn.offsetLeft + burnBtn.offsetWidth / 2;
         const centerY = burnBtn.offsetTop + burnBtn.offsetHeight / 2;
         
-        // 中心から一定の範囲内にランダム配置
-        const offsetX = (Math.random() - 0.5) * 240; 
-        const offsetY = (Math.random() - 0.5) * 240;
+        // BURNボタンの上・中・下の領域にランダムで出現させるぜ
+        // 0:上、1:中、2:下の3つのエリア
+        const area = Math.floor(Math.random() * 3);
+        let offsetX, offsetY;
         
-        effect.style.left = `${centerX + offsetX - 65}px`; 
-        effect.style.top = `${centerY + offsetY - 65}px`;
+        switch(area) {
+            case 0: // 上
+                offsetX = (Math.random() - 0.5) * 260;
+                offsetY = -140 - (Math.random() * 40);
+                break;
+            case 1: // 中（横）
+                offsetX = (Math.random() > 0.5 ? 1 : -1) * (120 + Math.random() * 50);
+                offsetY = (Math.random() - 0.5) * 100;
+                break;
+            case 2: // 下
+                offsetX = (Math.random() - 0.5) * 260;
+                offsetY = 140 + (Math.random() * 40);
+                break;
+        }
+        
+        effect.style.left = `${centerX + offsetX - 70}px`; // 70はwidth(140px)の半分
+        effect.style.top = `${centerY + offsetY - 70}px`;
         
         burnBtn.parentElement.appendChild(effect);
         
