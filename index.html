@@ -531,7 +531,6 @@
         }
 
         /* Sticky Notes Styles */
-        /* Sticky Notes Styles */
         .sticky-note-area {
             display: flex;
             flex-wrap: wrap;
@@ -858,6 +857,11 @@
     </div>
 </div>
 
+<!-- Modal for Photo Zoom -->
+<div id="photoModal">
+    <img id="modalImg" src="" alt="Zoomed Photo">
+</div>
+
 <!-- Page 5: 魂の寄せ書き (Dynamic Container) -->
 <div id="yosegakiPagesContainer">
     <div class="page yosegaki-page" id="yosegakiPage1">
@@ -887,14 +891,65 @@
         </div>
     </div>
 </div>
-        MEMORIES FORGED IN FIRE
-    </div>
-</div>
 
-<!-- Modal for Photo Zoom -->
-<!-- Modal for Photo Zoom -->
-<div id="photoModal">
-    <img id="modalImg" src="" alt="Zoomed Photo">
+<!-- Page 6: 精算用ページ (最終ページ) -->
+<div class="page">
+    <div class="hero" style="height: 200px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('memory_2.png');">
+        <div class="hero-content">
+            <div class="main-catchphrase" style="font-size: 2.5rem;">祝杯の代償</div>
+            <div class="sub-catchphrase" style="font-size: 1.2rem;">SETTLEMENT OF SOUL</div>
+        </div>
+    </div>
+
+    <h1>キャッシュレス戦士の休息</h1>
+
+    <div class="content-wrap">
+        <div class="section">
+            <h2>■ 魂の価格（会費）</h2>
+            <div style="text-align: center; padding: 20px;">
+                <span style="font-size: 3rem; color: var(--accent-color); font-weight: 900; text-shadow: 0 0 20px rgba(243, 156, 18, 0.5);">
+                    ￥5,500（暫定）
+                </span>
+                <p style="margin-top: 10px; color: #aaa;">※死闘の果てに変動する可能性あり。漢なら細かいことは気にするな。</p>
+            </div>
+        </div>
+
+        <div class="section" style="border: 3px solid var(--primary-color); background: rgba(192, 57, 43, 0.2);">
+            <h2 style="color: #fff; background: var(--primary-color); border: none; padding: 5px 15px;">⚠️ 猛者たちへの警告</h2>
+            <div style="padding: 15px; text-align: center; font-weight: bold; font-size: 1.2rem; line-height: 1.8;">
+                精算は、飲み会の終わりに<br>
+                <span style="color: var(--accent-color); font-size: 1.5rem; text-decoration: underline;">「最終金額」が確定してから</span>行う。<br>
+                今はまだ、その魂（金）を懐にしまっておけ！
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>■ 迅速なる決済（PayPay）</h2>
+            <div style="display: flex; justify-content: center; align-items: center; padding: 20px 0;">
+                <div style="text-align: center;">
+                    <a href="https://qr.paypay.ne.jp/p2p01_1UEOwpGTKvgyX1bA" target="_blank" style="text-decoration: none;">
+                        <div style="width: 200px; height: 200px; background: white; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--accent-color); overflow: hidden; box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://qr.paypay.ne.jp/p2p01_1UEOwpGTKvgyX1bA" alt="PayPay QR" style="max-width: 100%; max-height: 100%;">
+                        </div>
+                        <p class="info-label" style="background: #ff0033; color: white; padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">PayPayで送金する</p>
+                    </a>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 1rem; color: #eee; margin-top: 15px;">
+                送金後、<span class="burning-text">「完了画面」</span>を幹事（若杉）へ叩きつけよ！
+            </p>
+        </div>
+
+        <div class="notice-box" style="margin-top: 20px; border-color: #555;">
+            <p style="color: #888; text-align: center; font-size: 0.8rem;">
+                ※銀行振込・LINE Pay等の軟弱な手段は受け付けていない。<br>PayPay一択、それが漢の流儀。
+            </p>
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
+        NO CASH, NO PROBLEM. JUST PAYPAY.
+    </div>
 </div>
 
 <script>
