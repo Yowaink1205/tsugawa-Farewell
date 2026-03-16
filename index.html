@@ -951,7 +951,7 @@
         owner: 'Yowaink1205',
         repo: 'tsugawa-Farewell',
         issueNumber: '1',
-        token: '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'
+        token: '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'
     };
 
     const LIMIT_FIRST_PAGE = 6;  // 1ページ目はフォームがあるので6枚まで
@@ -966,7 +966,12 @@
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
-            if (!response.ok) throw new Error('データ取得に失敗したぞ！');
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error('【認証エラー】GitHubトークンが無効だ！再発行が必要かもしれない。');
+                }
+                throw new Error(`データ取得に失敗したぞ！（Status: ${response.status}）`);
+            }
             
             const comments = await response.json();
             
@@ -975,6 +980,7 @@
             });
         } catch (error) {
             console.error('Error:', error);
+            alert(error.message);
         }
     }
 
@@ -1045,10 +1051,13 @@
                 userMsgInput.value = '';
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             } else {
-                throw new Error('通信エラーだ！');
+                if (response.status === 401) {
+                    throw new Error('【認証エラー】GitHubトークンが無効だ！通信環境ではなく、トークンの期限切れか、トークンをGitHubに検知されて自動失効された可能性がある。');
+                }
+                throw new Error(`【通信エラー】GitHubへの送信に失敗したぞ！（Status: ${response.status}）`);
             }
         } catch (error) {
-            alert('エラーが発生した。通信環境を確認せよ！');
+            alert(error.message || '予期せぬエラーが発生した。通信環境とトークンを確認せよ！');
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerText = '掲示板に叩きつける';
