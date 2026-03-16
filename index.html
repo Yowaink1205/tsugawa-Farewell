@@ -895,6 +895,67 @@
     </div>
 </div>
 
+<!-- Page 4: 漢の精神力試練 (Game Page) -->
+<div class="page">
+    <div class="hero" style="height: 150px; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hot_man_tsugawa.png');">
+        <div class="hero-content">
+            <div class="main-catchphrase" style="font-size: 2rem;">漢の精神力試練</div>
+            <div class="sub-catchphrase" style="font-size: 1rem;">BURNING SPIRIT TAP</div>
+        </div>
+    </div>
+
+    <div class="content-wrap" style="text-align: center; padding-top: 20px;">
+        <div id="game-container">
+            <div style="margin-bottom: 20px;">
+                <p style="font-size: 1.1rem; color: var(--accent-color); font-weight: bold;">
+                    制限時間10秒！魂を込めて連打せよ！<br>
+                    津川さんへの熱き想いをスコアに刻むのだ。
+                </p>
+            </div>
+
+            <!-- Game UI -->
+            <div style="background: rgba(255,255,255,0.05); border: 2px solid #444; padding: 20px; border-radius: 15px; position: relative;">
+                <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+                    <div>
+                        <p style="font-size: 0.8rem; color: #888;">TIME</p>
+                        <p id="game-timer" style="font-family: 'Courier New', monospace; font-size: 2.5rem; color: #ff0000; font-weight: bold;">10.0</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.8rem; color: #888;">TAP COUNT</p>
+                        <p id="tap-count" style="font-family: 'Courier New', monospace; font-size: 2.5rem; color: var(--accent-color); font-weight: bold;">0</p>
+                    </div>
+                </div>
+
+                <!-- Main Button -->
+                <button id="burn-btn" style="width: 180px; height: 180px; border-radius: 50%; border: 8px solid #c0392b; background: radial-gradient(#e67e22, #c0392b); color: white; font-size: 1.8rem; font-weight: 900; cursor: pointer; box-shadow: 0 0 20px rgba(192, 57, 43, 0.6); transition: transform 0.05s; outline: none; user-select: none;">
+                    BURN!!
+                </button>
+
+                <!-- Start Overlay -->
+                <div id="game-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 13px; z-index: 10;">
+                    <button id="start-game-btn" class="submit-btn" style="width: 200px; font-size: 1.2rem;">試練開始</button>
+                </div>
+            </div>
+
+            <!-- Result Display -->
+            <div id="game-result" style="display: none; margin-top: 20px; animation: flicker 1s infinite;">
+                <p style="font-size: 1rem; color: #aaa;">漢ランク</p>
+                <p id="rank-name" style="font-size: 2.5rem; color: var(--accent-color); font-weight: 900; text-shadow: 0 0 15px var(--accent-color);"></p>
+                <button id="retry-game-btn" style="margin-top: 15px; background: none; border: 1px solid #555; color: #888; padding: 5px 15px; cursor: pointer;">再挑戦</button>
+            </div>
+        </div>
+
+        <div class="notice-box" style="margin-top: 30px; font-size: 0.8rem;">
+            <p><strong>【試練の称号】</strong></p>
+            <p>80回以上：伝説の漢 / 60回以上：炎の戦士 / 40回以上：熱き若人 / 20回以上：一般門下生</p>
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
+        PROVE YOUR PASSION THROUGH YOUR FINGERTIPS.
+    </div>
+</div>
+
 <!-- Page 6: 精算用ページ (最終ページ) -->
 <div class="page">
     <div class="hero" style="height: 200px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('memory_2.png');">
@@ -931,7 +992,7 @@
             <div style="display: flex; justify-content: center; align-items: center; padding: 20px 0;">
                 <div style="text-align: center;">
                     <a href="https://qr.paypay.ne.jp/p2p01_1UEOwpGTKvgyX1bA" target="_blank" style="text-decoration: none;">
-                        <div style="width: 200px; height: 200px; background: white; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--accent-color); overflow: hidden; box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);">
+                        <div style="width: 200px; height: 200px; background: white; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 5px solid var(--accent-color); overflow: hidden; box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);">
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://qr.paypay.ne.jp/p2p01_1UEOwpGTKvgyX1bA" alt="PayPay QR" style="max-width: 100%; max-height: 100%;">
                         </div>
                         <p class="info-label" style="background: #ff0033; color: white; padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">PayPayで送金する</p>
@@ -1120,6 +1181,118 @@
             submitBtn.disabled = false;
             submitBtn.innerText = '掲示板に叩きつける';
         }
+    });
+
+    // ゲームロジック
+    let count = 0;
+    let timer = 10.0;
+    let isPlaying = false;
+    let gameInterval;
+
+    const gameTimerDisplay = document.getElementById('game-timer');
+    const tapCountDisplay = document.getElementById('tap-count');
+    const burnBtn = document.getElementById('burn-btn');
+    const startGameBtn = document.getElementById('start-game-btn');
+    const gameOverlay = document.getElementById('game-overlay');
+    const gameResult = document.getElementById('game-result');
+    const rankNameDisplay = document.getElementById('rank-name');
+    const retryGameBtn = document.getElementById('retry-game-btn');
+
+    // --- 漢の魂・音響システム (External Audio) ---
+    const audioHit = new Audio('hit.mp3');
+    const audioStart = new Audio('katsu.mp3');
+    const audioEnd = new Audio('katsu.mp3'); // 終了時も「喝！」を流用
+
+    // オーディオ設定
+    audioHit.preload = 'auto';
+    audioStart.preload = 'auto';
+
+    function playHitSound() {
+        // 連打に対応するため、再生位置を0に戻して再生
+        const clone = audioHit.cloneNode();
+        clone.volume = 0.6;
+        clone.play().catch(e => console.log('Audio play failed:', e));
+    }
+
+    function playStartSound() {
+        audioStart.currentTime = 0;
+        audioStart.volume = 0.8;
+        audioStart.play().catch(e => console.log('Audio play failed:', e));
+    }
+
+    function playEndSound() {
+        audioEnd.currentTime = 0;
+        audioEnd.volume = 0.8;
+        audioEnd.play().catch(e => console.log('Audio play failed:', e));
+    }
+
+    function startGame() {
+        playStartSound();
+        
+        count = 0;
+        timer = 10.0;
+        isPlaying = true;
+        tapCountDisplay.innerText = count;
+        gameTimerDisplay.innerText = timer.toFixed(1);
+        gameOverlay.style.display = 'none';
+        gameResult.style.display = 'none';
+        
+        gameInterval = setInterval(() => {
+            timer -= 0.1;
+            if (timer <= 0) {
+                timer = 0;
+                endGame();
+            }
+            gameTimerDisplay.innerText = timer.toFixed(1);
+        }, 100);
+    }
+
+    function endGame() {
+        isPlaying = false;
+        clearInterval(gameInterval);
+        playEndSound();
+        
+        let rank = "";
+        if (count >= 80) rank = "伝説の漢";
+        else if (count >= 60) rank = "炎の戦士";
+        else if (count >= 40) rank = "熱き若人";
+        else if (count >= 20) rank = "一般門下生";
+        else rank = "ただの通行人";
+
+        rankNameDisplay.innerText = rank;
+        gameResult.style.display = 'block';
+        gameOverlay.style.display = 'flex';
+        startGameBtn.style.display = 'none'; // 開始ボタンは隠す
+    }
+
+    burnBtn.addEventListener('mousedown', () => {
+        if (!isPlaying) return;
+        count++;
+        tapCountDisplay.innerText = count;
+        playHitSound();
+        burnBtn.style.transform = 'scale(0.95)';
+    });
+
+    burnBtn.addEventListener('mouseup', () => {
+        burnBtn.style.transform = 'scale(1)';
+    });
+
+    burnBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (!isPlaying) return;
+        count++;
+        tapCountDisplay.innerText = count;
+        playHitSound();
+        burnBtn.style.transform = 'scale(0.95)';
+    });
+
+    burnBtn.addEventListener('touchend', () => {
+        burnBtn.style.transform = 'scale(1)';
+    });
+
+    startGameBtn.addEventListener('click', startGame);
+    retryGameBtn.addEventListener('click', () => {
+        startGame();
     });
 
     // 初期読み込み実行
