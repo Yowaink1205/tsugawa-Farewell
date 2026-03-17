@@ -227,6 +227,107 @@
             margin-top: 30px;
         }
 
+        /* Omikuji Styles */
+        .omikuji-container {
+            margin-top: 40px;
+            padding: 20px;
+            background: #000;
+            border: 3px double var(--accent-color);
+            position: relative;
+        }
+
+        .omikuji-box {
+            width: 120px;
+            height: 180px;
+            background: #c0392b;
+            margin: 0 auto 20px;
+            position: relative;
+            border: 4px solid #8e44ad;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.1s;
+        }
+
+        .omikuji-box:active {
+            transform: translateY(10px) rotate(5deg);
+        }
+
+        .omikuji-box::after {
+            content: '漢';
+            font-size: 3rem;
+            color: #f1c40f;
+            font-weight: 900;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .omikuji-result {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            border: 5px solid var(--primary-color);
+            font-family: 'Shippori Mincho', serif;
+            animation: omikuji-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            text-align: left;
+        }
+
+        .omikuji-rank-container {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
+
+        .omikuji-rank-label {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+        }
+
+        .omikuji-rank {
+            font-size: 3rem;
+            color: #c0392b;
+            font-weight: 900;
+        }
+
+        .omikuji-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 10px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .omikuji-item-label {
+            background: #000;
+            color: #fff;
+            padding: 2px 5px;
+            text-align: center;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .omikuji-item-value {
+            border-bottom: 1px dashed #ccc;
+            padding-left: 5px;
+        }
+
+        .omikuji-advice {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 5px solid var(--accent-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
         .notice-box strong {
             color: var(--accent-color);
             font-size: 1.2rem;
@@ -972,6 +1073,64 @@
     </div>
 </div>
 
+<!-- Page 7: 漢の運勢占い (Standalone Page) -->
+<div class="page">
+    <div class="hero" style="height: 150px; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hot_man_tsugawa.png');">
+        <div class="hero-content">
+            <div class="main-catchphrase" style="font-size: 2rem;">漢の運勢占い</div>
+            <div class="sub-catchphrase" style="font-size: 1rem;">FORTUNE OF THE BRAVE</div>
+        </div>
+    </div>
+
+    <div class="content-wrap" style="text-align: center; padding-top: 40px;">
+        <div class="omikuji-container" style="max-width: 500px; margin: 0 auto;">
+            <p style="margin-bottom: 25px; font-size: 1.1rem; color: #fff;">
+                箱を激しくクリック（タップ）して、<br>
+                今日の漢運を占え！
+            </p>
+            
+            <div id="omikuji-box" class="omikuji-box">
+                <span style="font-size: 0.8rem; color: #fff; position: absolute; top: 15px; width: 100%; text-align: center; font-weight: bold;">振れ！</span>
+            </div>
+
+            <div id="omikuji-result" class="omikuji-result">
+                <div class="omikuji-rank-container">
+                    <span class="omikuji-rank-label">漢の運勢</span>
+                    <div id="omikuji-rank" class="omikuji-rank"></div>
+                </div>
+
+                <div class="omikuji-grid">
+                    <div class="omikuji-item-label">願事</div>
+                    <div id="omikuji-wish" class="omikuji-item-value"></div>
+                    <div class="omikuji-item-label">仕事</div>
+                    <div id="omikuji-work" class="omikuji-item-value"></div>
+                    <div class="omikuji-item-label">恋愛</div>
+                    <div id="omikuji-love" class="omikuji-item-value"></div>
+                    <div class="omikuji-item-label">食事</div>
+                    <div id="omikuji-meal" class="omikuji-item-value"></div>
+                </div>
+
+                <div class="omikuji-advice">
+                    <strong style="color: var(--accent-color); font-size: 0.8rem;">【漢への助言】</strong><br>
+                    <span id="omikuji-advice-text"></span>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="reset-omikuji" style="background: var(--primary-color); border: none; color: white; padding: 10px 25px; cursor: pointer; font-size: 1rem; font-weight: bold; border-radius: 5px;">もう一度引く</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="notice-box" style="margin-top: 50px; border-color: #444; color: #888; font-size: 0.85rem;">
+            ※この占いは科学的根拠は一切ない。己の魂の叫びこそが真実だ。
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: #444; font-size: 0.9rem;">
+        YOUR DESTINY IS IN YOUR HANDS.
+    </div>
+</div>
+
 <!-- Page 6: 精算用ページ (最終ページ) -->
 <div class="page">
     <div class="hero" style="height: 200px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('memory_2.png');">
@@ -1373,6 +1532,106 @@
     startGameBtn.addEventListener('click', startGame);
     retryGameBtn.addEventListener('click', () => {
         startGame();
+    });
+
+    // --- 漢のおみくじロジック ---
+    const omikujiBox = document.getElementById('omikuji-box');
+    const omikujiResult = document.getElementById('omikuji-result');
+    const omikujiRank = document.getElementById('omikuji-rank');
+    const omikujiWish = document.getElementById('omikuji-wish');
+    const omikujiWork = document.getElementById('omikuji-work');
+    const omikujiLove = document.getElementById('omikuji-love');
+    const omikujiMeal = document.getElementById('omikuji-meal');
+    const omikujiAdviceText = document.getElementById('omikuji-advice-text');
+    const resetOmikujiBtn = document.getElementById('reset-omikuji');
+
+    const omikujiResults = [
+        { 
+            rank: "大漢", 
+            wish: "想いのままに叶う。恐れるな。", 
+            work: "伝説級の成果が出る。昇進の予感。", 
+            love: "熱烈なアプローチあり。漢気で応えよ。",
+            meal: "特大の中華が待っている。完食あるのみ。",
+            advice: "魂が燃え盛っている。新橋中の酒が君を呼んでいるぞ。" 
+        },
+        { 
+            rank: "中漢", 
+            wish: "粘り強く挑めば成就する。", 
+            work: "順調。チームの士気を高める役割だ。", 
+            love: "誠実さが鍵。共に中華を食せば仲深まる。",
+            meal: "辛口料理が吉。汗を流してデトックスせよ。",
+            advice: "絶好調。中華の旨みが五臓六腑に染み渡るだろう。" 
+        },
+        { 
+            rank: "小漢", 
+            wish: "小さな喜びが重なる日。", 
+            work: "地道な作業に幸あり。背中で語れ。", 
+            love: "焦りは禁物。まずは相手の話を聴け。",
+            meal: "点心パーティーが吉。仲間と分け合え。",
+            advice: "安定の漢気。さりげない気遣いで周囲を沸かせるぜ。" 
+        },
+        { 
+            rank: "吉漢", 
+            wish: "思わぬ助け舟あり。感謝を忘れるな。", 
+            work: "直感を信じろ。攻めの姿勢が功を奏す。", 
+            love: "意外な場所での出会い。笑顔を絶やすな。",
+            meal: "生ビールが最高に美味い。乾杯を極めろ。",
+            advice: "運気上昇中。おかわりのタイミングが完璧になる。" 
+        },
+        { 
+            rank: "末漢", 
+            wish: "時間はかかるが、やがて光が見える。", 
+            work: "基礎を固めよ。準備こそが勝利への近道。", 
+            love: "一歩ずつ。不器用でも想いは伝わる。",
+            meal: "じっくり煮込んだスープが吉。心を温めろ。",
+            advice: "焦るな。じっくり焼いた餃子の如く待てば好機が来る。" 
+        },
+        { 
+            rank: "凶漢", 
+            wish: "今は耐え時。嵐が過ぎるのを待て。", 
+            work: "ミスに注意。再確認を徹底せよ。", 
+            love: "誤解に注意。言葉選びは慎重にな。",
+            meal: "熱すぎる小籠包に注意。火傷を避けろ。",
+            advice: "油断禁物。酒に飲まれるな、酒を呑み込め。" 
+        }
+    ];
+
+    let shakeCount = 0;
+
+    function shakeOmikuji() {
+        if (omikujiResult.style.display === 'block') return;
+        
+        shakeCount++;
+        playHitSound(); 
+        
+        // 5回振ったら結果発表
+        if (shakeCount >= 5) {
+            const res = omikujiResults[Math.floor(Math.random() * omikujiResults.length)];
+            omikujiRank.innerText = res.rank;
+            omikujiWish.innerText = res.wish;
+            omikujiWork.innerText = res.work;
+            omikujiLove.innerText = res.love;
+            omikujiMeal.innerText = res.meal;
+            omikujiAdviceText.innerText = res.advice;
+
+            omikujiBox.style.display = 'none';
+            omikujiResult.style.display = 'block';
+            shakeCount = 0;
+            
+            playEndSound();
+        }
+    }
+
+    omikujiBox.addEventListener('click', shakeOmikuji);
+    omikujiBox.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        shakeOmikuji();
+    });
+
+    resetOmikujiBtn.addEventListener('click', () => {
+        omikujiResult.style.display = 'none';
+        omikujiBox.style.display = 'flex';
+        shakeCount = 0;
     });
 
     // 初期読み込み実行
